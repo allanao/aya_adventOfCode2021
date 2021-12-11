@@ -9,27 +9,39 @@ const client = new AocClient({
 let input = client.getInput()
   .then(data => {
     // use split method to put each level into an array
-    const levels = data.split("\n");
-    console.log(levels.length);
-    console.log('ANSWER:', sonarSweep(levels));
+    const directions = data.split("\n");
+    // console.log(directions.length); // 1000
+    // console.log('INPUT DATA:', directions); // array of strings
+    console.log('ANSWER:', dive(directions));
     // return levels;
   })
   .catch(err => console.log(err))
 
 
 // NOTES:
-// hp, depth (integers)
+// variables needed: hp, depth (integers)
 // forward - increases hp
 // down - increases depth
 // up - decreases depth 
 
-// INPUT: 
+// INPUT: array of strings 'direction number
 // OUTPUT: hp * depth 
-// Aya's solution - 
+// Aya's solution - 12/10/21 - Part 1 solved
 function dive(plannedCourse) {
-
+  // initialize horizontalPosition and depth variables
+  let hp = 0, depth = 0;
+  // iterate through input array
+  for (const command of plannedCourse) {
+    // split each string into an array, use array destructuring to get values [direction, value]
+    const [ direction, value ] = command.split(' ');
+    
+    if (direction === 'forward') hp += Number(value);
+    if (direction === 'down') depth += Number(value);
+    if (direction === 'up') depth -= Number(value);
+  }
+  return hp * depth;
 };
 
-// const example1 = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263];
-// console.log(example1.length);
-// console.log('example answer:', dive(example1)); // 7 (extension: 5)
+const example1 = ['forward 5', 'down 5', 'forward 8', 'up 3', 'down 8', 'forward 2'];
+console.log(example1.length);
+console.log('example answer:', dive(example1)); // 150 (extension: 900)
