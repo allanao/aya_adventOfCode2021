@@ -12,7 +12,7 @@ let input = client.getInput()
     const directions = data.split("\n");
     // console.log(directions.length); // 1000
     // console.log('INPUT DATA:', directions); // array of strings
-    console.log('ANSWER:', dive(directions));
+    console.log('ANSWER:', dive(directions)); // Part 1 Answer: 2117664, Part 2: 2073416724
     // return levels;
   })
   .catch(err => console.log(err))
@@ -24,20 +24,30 @@ let input = client.getInput()
 // down - increases depth
 // up - decreases depth 
 
+// Part 2:
+// additional variable needed: aim (init to 0)
+// down - increases aim
+// up - decreases aim
+// forward - increases hP by x units AND increases depth by aim's current value * X
+
+
 // INPUT: array of strings 'direction number
 // OUTPUT: hp * depth 
 // Aya's solution - 12/10/21 - Part 1 solved
 function dive(plannedCourse) {
   // initialize horizontalPosition and depth variables
-  let hp = 0, depth = 0;
+  let hp = 0, depth = 0, aim = 0;
   // iterate through input array
   for (const command of plannedCourse) {
     // split each string into an array, use array destructuring to get values [direction, value]
     const [ direction, value ] = command.split(' ');
     
-    if (direction === 'forward') hp += Number(value);
-    if (direction === 'down') depth += Number(value);
-    if (direction === 'up') depth -= Number(value);
+    if (direction === 'down') aim += Number(value);
+    if (direction === 'up') aim -= Number(value);
+    if (direction === 'forward') {
+      hp += Number(value);
+      depth += (Number(value) * aim);
+    } 
   }
   return hp * depth;
 };
