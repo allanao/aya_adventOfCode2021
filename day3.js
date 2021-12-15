@@ -28,7 +28,7 @@ let input = client.getInput()
 
 // INPUT: diagnostic report (array of strings)
 // OUTPUT: power consumption (in decimal; gamma rate * epsilon rate)
-// Aya's solution - 12/12/21 - Part 1 solved
+// Aya's solution - 12/12/21 - Part 1 and part 2 solved
 function binaryDiagnostic(diagnosticReport) {
   const frequencies =  {};
   // calculate for gammaRate
